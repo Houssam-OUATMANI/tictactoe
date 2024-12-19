@@ -1,0 +1,20 @@
+.board {
+    background-color: gold;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 620px;
+    margin: auto;
+}
+
+.cell {
+    width: 200px;
+    height: 200px;
+    background: black;
+    border-radius: 10px;
+    cursor: pointer;
+    color: whitesmoke;
+    font-size: 50px;
+}
