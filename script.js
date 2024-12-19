@@ -1,26 +1,44 @@
 const cells = document.querySelectorAll(".cell")
 let currentPlayer = "X"
 let board = Array(9).fill("")
+const overlay = document.querySelector(".overlay")
+let gameIsActive = true
+
 
 
 
 
 function handleClick (event) {
     const id = event.target.dataset.id
-    if(board[id] !== "") return
+    if(board[id] !== "" || !gameIsActive) return
     board[id] = currentPlayer
     event.target.textContent = currentPlayer
 
     if(checkForWin()) {
-        alert(`Le joeur ${currentPlayer} a gagne` )
+        displayResult(`Le joueur ${currentPlayer} a gagne` )
     }
     else if(!board.includes("")) {
-        alert(`Match nul` )
+        displayResult(`Match nul` )
     }
     else currentPlayer = currentPlayer === "X" ? "O" : "X"
 
 }
 
+function displayResult(message) {
+    overlay.style.display = "flex"
+    overlay.querySelector("h1").textContent = message
+    gameIsActive = false
+
+}
+
+
+function resetGame() {
+    overlay.style.display = "none"
+    board = Array(9).fill("")
+    currentPlayer = "X"
+    gameIsActive = true
+    cells.forEach(cell => cell.textContent = "")
+}
 
 function checkForWin() {
     const combs = [
@@ -43,6 +61,7 @@ return combs.some(comb =>  {
 
 function main () {
     cells.forEach(cell => cell.addEventListener("click", handleClick))
+    overlay.querySelector("button").addEventListener("click", resetGame)
 }
 
 main()
